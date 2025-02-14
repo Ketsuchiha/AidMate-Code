@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AidMate - First Aid Assistant</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Dashboard Screen -->
+        <div class="screen active" id="dashboard-screen">
+            <div class="gradient-background"></div>
+            <div class="dashboard-content">
+                <div class="dashboard-header">
+                    <img src="emergency.png" alt="AidMate Logo" class="logo">
+                    <h1>AidMate</h1>
+                    <p class="subtitle">Your Personal First Aid Assistant</p>
+                </div>
+
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search for First Aid Topics" oninput="searchTopics()">
+                    <span class="search-icon">🔍</span>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-item" onclick="showScreen('conditions-screen')">
+                        <div class="item-content">
+                            <span class="item-icon">🏥</span>
+                            <h3>Medical Conditions</h3>
+                            <p>Learn about common conditions</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="showScreen('situations-screen')">
+                        <div class="item-content">
+                            <span class="item-icon">🚑</span>
+                            <h3>First-Aid Situations</h3>
+                            <p>Emergency response guides</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="toggleFavorites()">
+                        <div class="item-content">
+                            <span class="item-icon">⭐</span>
+                            <h3>Favorites</h3>
+                            <p>Your saved guides</p>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="showScreen('profile-screen')">
+                        <div class="item-content">
+                            <span class="item-icon">👤</span>
+                            <h3>Profile</h3>
+                            <p>Manage your information</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="emergency-btn" onclick="showEmergencyModal()">
+                    <span class="emergency-icon">🚨</span>
+                    Emergency
+                </button>
+            </div>
+        </div>
+
+        <!-- Medical Conditions Screen -->
+<div class="screen" id="conditions-screen">
+    <div class="gradient-background"></div>
+    <div class="dashboard-content">
+        <h2>Medical Conditions</h2>
+        <div class="condition-card" onclick="showConditionDetails('Asthma')">
+            <h3>Asthma</h3>
+            <p>Learn about asthma triggers and emergency response</p>
+            <button class="button" onclick="toggleFavorite('Asthma', event)">Add to Favorites</button>
+        </div>
+        <div class="condition-card" onclick="showConditionDetails('Diabetes')">
+            <h3>Diabetes</h3>
+            <p>Managing blood sugar emergencies</p>
+            <button class="button" onclick="toggleFavorite('Diabetes', event)">Add to Favorites</button>
+        </div>
+        <div class="condition-card" onclick="showConditionDetails('Allergies')">
+            <h3>Allergies</h3>
+            <p>Recognizing and responding to severe allergic reactions</p>
+            <button class="button" onclick="toggleFavorite('Allergies', event)">Add to Favorites</button>
+        </div>
+    </div>
+</div>
+
+<!-- First-Aid Situations Screen -->
+<div class="screen" id="situations-screen">
+    <div class="gradient-background"></div>
+    <div class="dashboard-content">
+        <h2>First-Aid Situations</h2>
+        <div class="condition-card" onclick="showSituationDetails('Cuts & Bleeding')">
+            <h3>Cuts & Bleeding</h3>
+            <p>Steps to handle bleeding emergencies</p>
+            <button class="button" onclick="toggleFavorite('Cuts & Bleeding', event)">Add to Favorites</button>
+        </div>
+        <div class="condition-card" onclick="showSituationDetails('Burns')">
+            <h3>Burns</h3>
+            <p>First aid for different types of burns</p>
+            <button class="button" onclick="toggleFavorite('Burns', event)">Add to Favorites</button>
+        </div>
+        <div class="condition-card" onclick="showSituationDetails('CPR')">
+            <h3>CPR</h3>
+            <p>Basic life support guidelines</p>
+            <button class="button" onclick="toggleFavorite('CPR', event)">Add to Favorites</button>
+        </div>
+    </div>
+</div>
+
+        <!-- Profile Screen -->
+        <div class="screen" id="profile-screen">
+            <div class="gradient-background"></div>
+            <div class="dashboard-content">
+                <div class="profile-header">
+                    <h2>My Profile</h2>
+                    <div id="profile-view">
+                        <p id="profileName">Name: Guest User</p>
+                        <p id="profileAge">Age: Not set</p>
+                        <p id="profileEmergency">Emergency Contact: Not set</p>
+                        <button class="button" onclick="showEditProfile()">Edit Profile</button>
+                    </div>
+                    <div id="profile-edit" style="display: none;">
+                        <input type="text" id="editName" class="input-field" placeholder="Name">
+                        <input type="number" id="editAge" class="input-field" placeholder="Age">
+                        <input type="tel" id="editEmergency" class="input-field" placeholder="Emergency Contact">
+                        <button class="button" onclick="saveProfile()">Save Changes</button>
+                        <button class="button" onclick="cancelEdit()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Bar -->
+        <div class="navigation-bar">
+            <a href="#" class="nav-item active" onclick="showScreen('dashboard-screen')">🏠</a>
+            <a href="#" class="nav-item" onclick="showScreen('conditions-screen')">💊</a>
+            <a href="#" class="nav-item" onclick="showScreen('situations-screen')">🩹</a>
+            <a href="#" class="nav-item" onclick="showScreen('profile-screen')">👤</a>
+            <a href="#" class="nav-item" onclick="showScreen('language-settings-screen')">🌐</a>
+        </div>
+    </div>
+
+    <!-- Emergency Modal -->
+    <div class="modal" id="emergencyModal">
+        <div class="modal-content">
+            <h2>Emergency Contact</h2>
+            <p>Calling emergency services...</p>
+            <p>Your emergency contact will be notified.</p>
+            <button class="button" onclick="hideEmergencyModal()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Favorites Modal -->
+    <div class="modal" id="favoritesModal">
+        <div class="modal-content">
+            <h2>My Favorites</h2>
+            <div id="favoritesList"></div>
+            <button class="button" onclick="hideFavoritesModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Condition/Situation Details Modal -->
+    <div class="modal" id="detailsModal">
+        <div class="modal-content">
+            <h2 id="detailsTitle"></h2>
+            <p id="detailsContent"></p>
+            <button class="button" id="favoriteButton" onclick="toggleFavorite()">Add to Favorites</button>
+            <button class="button" onclick="hideDetailsModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Language Settings Screen -->
+    <div class="screen" id="language-settings-screen">
+        <div class="gradient-background"></div>
+        <div class="dashboard-content">
+            <h2>Language Settings</h2>
+            <select id="languageSelector" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <!-- Add more language options as needed -->
+            </select>
+            <button class="button" onclick="showScreen('profile-screen')">Back to Profile</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
